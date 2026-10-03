@@ -1,0 +1,19 @@
+<div>
+    <h2 class="text-xl font-bold text-center mb-2">Autenticación de Dos Factores</h2>
+    <p class="text-xs text-gray-500 text-center mb-6">Ingresa el código temporal de 6 dígitos de tu aplicación autenticadora.</p>
+
+    {% if error %}
+    <div class="alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form hx-post="{% url 'login' %}" hx-target="#login-container" hx-swap="innerHTML" class="space-y-4">
+        <input type="hidden" name="verify_otp" value="1">
+
+        <div>
+            <label class="form-label">Código 2FA</label>
+            <input type="text" name="otp_code" maxlength="6" pattern="[0-9]{6}" required placeholder="000000" autofocus class="form-input-otp">
+        </div>
+
+        <button type="submit" class="btn-primary">Verificar e Iniciar Sesión</button>
+    </form>
+</div>

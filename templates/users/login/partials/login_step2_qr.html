@@ -1,0 +1,23 @@
+<div>
+    <h2 class="text-xl font-bold text-center mb-2">Vincular 2FA Obligatorio</h2>
+    <p class="text-xs text-gray-500 text-center mb-4">Escanea el código QR con Google Authenticator o Authy.</p>
+
+    <div class="flex justify-center mb-4">
+        <img src="data:image/png;base64,{{ qr_code }}" alt="Código QR 2FA" class="w-48 h-48 border p-2 rounded-lg shadow-sm">
+    </div>
+
+    {% if error %}
+    <div class="alert-error">{{ error }}</div>
+    {% endif %}
+
+    <form hx-post="{% url 'login' %}" hx-target="#login-container" hx-swap="innerHTML" class="space-y-4">
+        <input type="hidden" name="verify_otp" value="1">
+
+        <div>
+            <label class="form-label">Código de Verificación (6 dígitos)</label>
+            <input type="text" name="otp_code" maxlength="6" pattern="[0-9]{6}" required placeholder="000000" autofocus class="form-input-otp">
+        </div>
+
+        <button type="submit" class="btn-primary">Confirmar y Activar 2FA</button>
+    </form>
+</div>
